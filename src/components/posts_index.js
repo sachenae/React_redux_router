@@ -1,8 +1,8 @@
 import _ from'lodash';
 import React, { Component } from 'react';
-import { connect } from 'net';
+import { connect } from 'react-redux';
 import { fetchPosts } from '../actions';
-import { link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class PostsIndex extends Component {
 
@@ -11,9 +11,10 @@ class PostsIndex extends Component {
     }
 
     renderPosts() {
-        _.map(this.props.posts), post => {
+       return _.map(this.props.posts), post => {
             return (
                 <li className="list-group-item" key={post.id}>
+                {post.title}
                 </li>
             );
         }
@@ -38,5 +39,6 @@ class PostsIndex extends Component {
 function mapStateToProps(state) {
     return { posts: state.posts };
 }
-export default connect(mapStateToProps, {fetchPosts})(PostsIndex);
+
+export default connect(mapStateToProps, { fetchPosts })(PostsIndex);
 
