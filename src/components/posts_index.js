@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { fetchPosts } from '../actions';
 import { Link } from 'react-router-dom';
 
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
 class PostsIndex extends Component {
 
     componentDidMount(){
@@ -14,6 +16,7 @@ class PostsIndex extends Component {
        return _.map(this.props.posts, post => {
             return (
                 <li className="list-group-item" key={post.id}>
+                <span className="pull-xs-right">{post.categories}</span>
                 <Link to= {`/posts/${post.id}`}>
                 {post.title}
                 </Link>
@@ -22,6 +25,12 @@ class PostsIndex extends Component {
         });
     }
     render(){
+
+        const transitionOptions = {
+            transitionName: "fade",
+            transitionEnterTimeout: 500,
+            transitionLeaveTimeout: 500
+        };
         
         return (
             <div>
@@ -32,7 +41,11 @@ class PostsIndex extends Component {
             </div>
                 <h3>Posts</h3>
                 <ul className="list-group">
+
+                <ReactCSSTransitionGroup {...transitionOptions}>
                 {this.renderPosts()}
+                </ReactCSSTransitionGroup>
+                
                 </ul>
             </div>
         );
